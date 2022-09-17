@@ -2,6 +2,9 @@ package divisors
 
 import scala.math.BigInt
 
+def div_sum(n: Int): Int =
+  fast_divisors(n).sum - n
+
 def fast_divisors(n: Int): List[Int] = rec_fast_divisors(n, n, 1)
 
 def rec_fast_divisors(n: Int, stop: Int, curr: Int): List[Int] =
