@@ -1,3 +1,3 @@
 @main def main(): Unit =
-  val result = problem_24.problem_24()
+  val result = problem_25.problem_25()
   println(result)
