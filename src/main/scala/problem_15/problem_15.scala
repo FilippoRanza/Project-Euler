@@ -1,5 +1,14 @@
 package problem_15
 
-def problem_15(): Int = 15
-// def count_combinations(down: Int, total_down: Int, right: Int, total_right: Int, acc: Int): Int =
-//   (down, rigth) match
+import scala.math.BigInt
+
+def problem_15(): BigInt = binomial(40, 20) 
+
+
+def binomial(n: Int, k: Int): BigInt = 
+  val a = factorial.factorial(n)
+  val b = factorial.factorial(k)
+  val c = factorial.factorial(n - k)
+  a / (b * c)
+
+
