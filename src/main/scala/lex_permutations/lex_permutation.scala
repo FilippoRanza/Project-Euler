@@ -1,7 +1,5 @@
 package lex_permutation
 
-
-
 def next_permutation(curr: Array[Int]): Option[Array[Int]] =
   largest_k_index(None, curr).map(k => permute(curr, k))
 
