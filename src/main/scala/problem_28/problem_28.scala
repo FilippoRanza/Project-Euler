@@ -1,12 +1,11 @@
 package problem_28
 
-def problem_28(): Int = 
+def problem_28(): Int =
   get_diagonals_on_frame(1001).sum
 
 def get_diagonals_on_frame(frame_size: Int): LazyList[Int] =
-  val count = 2*frame_size - 1
+  val count = 2 * frame_size - 1
   rec_get_diagonals_on_frame(1, 2, 0, count)
-
 
 def rec_get_diagonals_on_frame(start_value: Int, incr: Int, index: Int, count: Int): LazyList[Int] =
   if count == 0 then LazyList.empty
