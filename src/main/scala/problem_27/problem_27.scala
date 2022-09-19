@@ -7,7 +7,7 @@ class PrimeCache(primes: HashSet[Long], upper: Long):
   private var prime_map = make_prime_map(primes, upper)
   def is_prime(n: Long): Boolean =
     if n <= 1 then false
-    else 
+    else
       if !prime_map.contains(n) then prime_map.addOne((n, bf_is_prime(n)))
       prime_map.get(n).get
 
@@ -39,7 +39,6 @@ def find_best_for_primes(
     primes: PrimeCache
 ): (Long, Long) =
   prime_list.map(b => find_best_for_prime(b, prime_set, primes)).maxBy(_._2)
-
 
 def find_best_for_prime(b: Long, prime_set: HashSet[Long], primes: PrimeCache): (Long, Long) =
   val (a, count) =
