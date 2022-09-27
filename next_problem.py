@@ -28,14 +28,24 @@ def make_next_problem_package(base_dir, curr_id):
         print(f"", file=file)
         print(f"", file=file)
     
-
-
+def make_new_main(base_dir, curr_id): 
+    problem_id = curr_id + 1
+    problem_name = f"problem_{problem_id}"
+    os.chdir(base_dir)
+    with open('Main.scala', 'w') as file:
+        print("@main def main(): Unit =", file=file)
+        print(f"  val result = {problem_name}.{problem_name}()", file=file)
+        print("  println(result)", file=file)
 
 
 def main():
+    curr_dir = os.getcwd()
     src_path = os.path.join("src", "main", "scala")
     last_problem = find_current_problem(src_path)
     make_next_problem_package(src_path, last_problem)
+    os.chdir(curr_dir)
+    make_new_main(src_path, last_problem)
+    os.chdir(curr_dir)
     print("created package for problem", last_problem + 1)
 
 if __name__ == '__main__':
