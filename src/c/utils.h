@@ -7,6 +7,7 @@ void print_int_vect(int* ptr, int count) {
     while(count--) {
         printf("%d ", *ptr++);
     }
+    putchar('\n');
 }
 
 
