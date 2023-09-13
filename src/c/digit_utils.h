@@ -19,7 +19,7 @@ int number_len(int number) {
     return output;
 }
 
-
+#ifdef __USE_BIG_NUMBER
 unsigned long big_number_len(mpz_t n) {
     unsigned long output = 0;
     while (mpz_cmp_ui(n, 0) != 0) {
@@ -29,5 +29,6 @@ unsigned long big_number_len(mpz_t n) {
 
     return output;
 }
+#endif
 
 #endif
