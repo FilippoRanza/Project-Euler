@@ -1,8 +1,8 @@
 #include "graph.h"
 
+#include <iostream>
 #include <limits.h>
 #include <queue>
-#include <iostream>
 
 graph::graph(int nodes) : graph(nodes, 1) {}
 graph::graph(int nodes, int deg) {
@@ -10,7 +10,7 @@ graph::graph(int nodes, int deg) {
     this->arcs = 0;
     this->lists = std::vector<adj_list>();
     this->lists.reserve(nodes);
-    for (int i; i < nodes; i++) {
+    for (int i = 0; i < nodes; i++) {
         auto tmp = std::vector<arc>();
         tmp.reserve(deg);
         this->lists.push_back(adj_list(tmp));
@@ -34,7 +34,9 @@ bool node_cost::operator<(const node_cost &other) const {
     return this->cost < other.cost;
 }
 node_cost node_cost::init(int node, int cost) {
-    node_cost output = {.node = node, .cost = cost};
+    node_cost output;
+    output.node = node;
+    output.cost = cost;
     return output;
 }
 
@@ -43,7 +45,9 @@ struct dijkstra_result {
     std::vector<int> dist;
 
     static dijkstra_result init(std::vector<int> prev, std::vector<int> dist) {
-        dijkstra_result output = {.prev = prev, .dist = dist};
+        dijkstra_result output;
+        output.prev = prev;
+        output.dist = dist;
         return output;
     }
 };
@@ -59,8 +63,8 @@ dijkstra_result dijkstra(graph *g, int src, int dst) {
     }
 
     dist[src] = 0;
-    int missing = g->nodes;
-    auto queue = std::priority_queue<node_cost>();
+    std::priority_queue<node_cost> queue;
+
     queue.push(node_cost::init(src, 0));
     while (!queue.empty()) {
         auto curr = queue.top();
@@ -72,7 +76,7 @@ dijkstra_result dijkstra(graph *g, int src, int dst) {
         for (auto &next : adj.arcs) {
             int curr_cost = next.cost;
             int curr_dst = next.dst;
-            int alt = dist[node] + curr_cost;
+            int alt = cost + curr_cost;
             if (alt < dist[curr_dst]) {
                 prev[curr_dst] = node;
                 dist[curr_dst] = alt;
