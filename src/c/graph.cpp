@@ -2,6 +2,7 @@
 
 #include <limits.h>
 #include <queue>
+#include <iostream>
 
 graph::graph(int nodes) : graph(nodes, 1) {}
 graph::graph(int nodes, int deg) {
@@ -25,11 +26,13 @@ struct node_cost {
     int node;
     int cost;
 
-    bool operator<(node_cost &other);
+    bool operator<(const node_cost &other) const;
     static node_cost init(int node, int cost);
 };
 
-bool node_cost::operator<(node_cost &other) { return this->cost < other.cost; }
+bool node_cost::operator<(const node_cost &other) const {
+    return this->cost < other.cost;
+}
 node_cost node_cost::init(int node, int cost) {
     node_cost output = {.node = node, .cost = cost};
     return output;
@@ -59,7 +62,7 @@ dijkstra_result dijkstra(graph *g, int src, int dst) {
     int missing = g->nodes;
     auto queue = std::priority_queue<node_cost>();
     queue.push(node_cost::init(src, 0));
-    while (missing > 0 || !queue.empty()) {
+    while (!queue.empty()) {
         auto curr = queue.top();
         queue.pop();
 
@@ -73,7 +76,7 @@ dijkstra_result dijkstra(graph *g, int src, int dst) {
             if (alt < dist[curr_dst]) {
                 prev[curr_dst] = node;
                 dist[curr_dst] = alt;
-                queue.push(node_cost::init(dst, alt));
+                queue.push(node_cost::init(curr_dst, alt));
             }
         }
     }
